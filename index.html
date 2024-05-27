@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Listeners</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100svh;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+      .container {
+        height: 300px;
+        width: 300px;
+        border-radius: 5px;
+        background: #4c0519;
+        backdrop-filter: blur(15px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        font-size: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="container" id="container">Container</section>
+    <script>
+      let container = document.getElementById("container");
+      let x = 0;
+      let y = 0;
+      function moveContainer() {
+        container.style.transform = `translate(${x}px, ${y}px)`;
+      }
+      let body = document.querySelector("body");
+      body.addEventListener("contextmenu", (e) => {
+        alert("you have right clicked!");
+      });
+      body.addEventListener("copy", (e) => {
+        alert("Copied Successfully!");
+      });
+      //   body.addEventListener("keyup", (e) => {
+      //     if (e.key === "ArrowUp") {
+      //       alert("Jump!");
+      //     }
+      //   });
+
+      body.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowUp") {
+          y -= 50;
+          //   alert("Jump!");
+        } else if (e.key === "ArrowDown") {
+          //   alert("Crouch!");
+          y += 50;
+        } else if (e.key === "ArrowRight") {
+          x += 50;
+          //   alert("Move Right!");
+        } else if (e.key === "ArrowLeft") {
+          //   alert("Move Left!");
+          x -= 50;
+        } else if (e.key.toLowerCase() === "a") {
+          //   alert("Attack");
+        } else if (e.key.toLowerCase() === "r" && e.ctrlKey) {
+          //   alert("Reloaded!");
+          e.preventDefault();
+        }
+        moveContainer();
+      });
+
+      function getRandomColor() {
+        let val = Math.floor(Math.random() * 16777215).toString(16);
+        return `#${val}`;
+      }
+
+      setInterval(() => {
+        body.style.backgroundColor = getRandomColor();
+      }, 3000);
+
+      setTimeout(() => {
+        container.style.backgroundColor = getRandomColor();
+      }, 5000);
+    </script>
+  </body>
+</html>
